@@ -30,3 +30,7 @@ ________________________________________________________________
 
 diff = [actual week] - [last week]
 
+_____________________________________________________________
+
+nazev tabulky = 
+"Receivables actual and last week ("&SELECTEDVALUE(fx[currency])&")"
