@@ -10,7 +10,10 @@ data[datum] - data[Datum splat.]>=1, "1-15 days overdue",
 actual week = 
 
 CALCULATE(
-    SUM(data[Pohledávka CZK]),
+    SUM(data[Pohledávka CZK])
+    /
+    SELECTEDVALUE(fx[rate]),
+
     poradi_souboru[Index] = 0)
 
 _______________________________________________________________________
@@ -18,7 +21,9 @@ _______________________________________________________________________
 last week = 
 
 CALCULATE(
-    SUM(data[Pohledávka CZK]),
+    SUM(data[Pohledávka CZK])
+    /
+    SELECTEDVALUE(fx[rate]),
     poradi_souboru[Index] = 1)
 
 ________________________________________________________________
