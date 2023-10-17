@@ -1,15 +1,8 @@
-let
-    Zdroj = Folder.Files("C:\Users\petrrozkosny\Desktop\export pohledavky"),
-    #"Filtrované skryté soubory1" = Table.SelectRows(Zdroj, each [Attributes]?[Hidden]? <> true),
-    #"Vyvolat vlastní funkci1" = Table.AddColumn(#"Filtrované skryté soubory1", "Transformovat soubor", each #"Transformovat soubor"([Content])),
-    #"Přejmenované sloupce1" = Table.RenameColumns(#"Vyvolat vlastní funkci1", {"Name", "Zdroj.Název"}),
-    #"Odebrané ostatní sloupce1" = Table.SelectColumns(#"Přejmenované sloupce1", {"Zdroj.Název", "Transformovat soubor"}),
-    #"Rozbalený sloupec tabulky1" = Table.ExpandTableColumn(#"Odebrané ostatní sloupce1", "Transformovat soubor", Table.ColumnNames(#"Transformovat soubor"(#"Ukázkový soubor"))),
-    prejmenovany_sloupec = Table.RenameColumns(#"Rozbalený sloupec tabulky1",  {Table.ColumnNames(#"Rozbalený sloupec tabulky1"){0},"soubor"}),
-    #"Změněný typ" = Table.TransformColumnTypes(prejmenovany_sloupec,{{"soubor", type text}, {"Období", type text}, {"Pohledávka CZK", Int64.Type}, {"Zákazník", type text}, {"I/E", type text}, {"PM", type text}}),
-    #"Nahrazená hodnota" = Table.ReplaceValue(#"Změněný typ",".xlsx","",Replacer.ReplaceText,{"soubor"}),
-    #"Nahrazená hodnota1" = Table.ReplaceValue(#"Nahrazená hodnota","overdues_","",Replacer.ReplaceText,{"soubor"}),
-    #"Nahrazená hodnota2" = Table.ReplaceValue(#"Nahrazená hodnota1","_",".",Replacer.ReplaceText,{"soubor"}),
-    #"Změněný typ1" = Table.TransformColumnTypes(#"Nahrazená hodnota2",{{"soubor", type date}})
-in
-    #"Změněný typ1"
+maturity = 
+ SWITCH(TRUE(),
+data[datum] - data[Datum splat.]>=31,"31 days and more overdue",
+data[datum] - data[Datum splat.]>=16,"16-30 days overdue",
+data[datum] - data[Datum splat.]>=1, "1-15 days overdue",
+ data[datum] - data[Datum splat.] <= 0, "due"
+ )
+
