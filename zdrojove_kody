@@ -34,3 +34,12 @@ _____________________________________________________________
 
 nazev tabulky = 
 "Receivables actual and last week ("&SELECTEDVALUE(fx[currency])&")"
+
+_________________________________________________
+
+customer_group = 
+SWITCH(TRUE(),
+SEARCH("ALSTOM",data[Zákazník],1,0)>0,"ALSTOM",
+SEARCH("SIEMENS",data[Zákazník],1,0)>0,"SIEMENS",
+"Others")
+
