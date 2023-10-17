@@ -5,4 +5,23 @@ data[datum] - data[Datum splat.]>=16,"16-30 days overdue",
 data[datum] - data[Datum splat.]>=1, "1-15 days overdue",
  data[datum] - data[Datum splat.] <= 0, "due"
  )
+-____________________________________________________________________________
+
+actual week = 
+
+CALCULATE(
+    SUM(data[Pohledávka CZK]),
+    poradi_souboru[Index] = 0)
+
+_______________________________________________________________________
+
+last week = 
+
+CALCULATE(
+    SUM(data[Pohledávka CZK]),
+    poradi_souboru[Index] = 1)
+
+________________________________________________________________
+
+diff = [actual week] - [last week]
 
