@@ -53,3 +53,17 @@ IF(
     hodnota < 0, 
     FORMAT(ABS(hodnota), "(#,##0.00)"),
     FORMAT(hodnota, "#,##0.00")
+
+
+_________________________________________________________
+
+minimalni mesicni pohledavky = 
+MINX(
+ADDCOLUMNS(
+    VALUES(data[datum]),
+"suma pohledavek",
+CALCULATE(SUM(data[Pohledávka CZK])
+,data[I/E] = "E"
+,data[maturity] IN {"31 days and more overdue"}
+)),
+[suma pohledavek])
