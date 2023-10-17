@@ -42,4 +42,14 @@ SWITCH(TRUE(),
 SEARCH("ALSTOM",data[Zákazník],1,0)>0,"ALSTOM",
 SEARCH("SIEMENS",data[Zákazník],1,0)>0,"SIEMENS",
 "Others")
+_______________________________________________________
 
+diff = 
+
+VAR hodnota =
+[actual week] - [last week]
+RETURN 
+IF(
+    hodnota < 0, 
+    FORMAT(ABS(hodnota), "(#,##0.00)"),
+    FORMAT(hodnota, "#,##0.00")
